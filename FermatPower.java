@@ -18,11 +18,11 @@ public class FermatPower {
         a %= n;
 
         while (b > 0) {
-            if ((b & 1) == 1) {
+            if ((b % 2) == 1) {
                 result = (result * a) % n;
             }
             a = (a * a) % n;
-            b >>= 1;
+            b = b / 2 ;
         }
         return result;
     }
@@ -37,19 +37,35 @@ public class FermatPower {
             return;
         }
 
-        long reducedExp;
+        long result;
 
-        if (gcd(a, n) == 1) {
-            //  Định lý Fermat dạng 1
-            reducedExp = m % (n - 1);
-            System.out.println("Dùng Fermat 1: m mod (n-1) = " + reducedExp);
-        } else {
-            //  Định lý Fermat dạng 2
-            reducedExp = m % n;
-            System.out.println("Dùng Fermat 2: m mod n = " + reducedExp);
+       
+        if (a % n == 0) {
+            System.out.println("Fermat 2: a ≡ 0 mod n → kết quả = 0");
+            result = 0;
         }
 
-        long result = modPow(a, reducedExp, n);
+       
+        else if (gcd(a, n) == 1) {
+             m = m % (n - 1);
+            System.out.println("Fermat 1:  ");
+            result = modPow(a, m, n);
+        }
+
+        
+        else {
+            System.out.println("Fermat 2:");
+
+            while (m >= n) {
+                long k = m / n;
+                long r = m % n;
+                m = k + r;
+             }
+
+            System.out.println("Biến đổi m → k + r = " + m);
+
+            result = modPow(a, m, n);
+        }
 
         System.out.println("b: " + result);
     }
