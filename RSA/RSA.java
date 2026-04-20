@@ -17,13 +17,12 @@ public class RSA {
         System.out.println("============================================\n");
 
 
-        // 2. Tìm khóa riêng d bằng bảng Euclid mở rộng
         System.out.println("BƯỚC 1: TÌM KHÓA RIÊNG d (Nghịch đảo của e mod phi(n))");
         long d = tinhEuclidMoRong(e, phiN);
         System.out.println("=> Khóa riêng d tìm được: " + d + "\n");
 
 
-        // 3. Thực hiện Bài toán 1: Chữ ký số
+
         System.out.println("BƯỚC 2: BÀI TOÁN 1 - CHỮ KÝ SỐ (AN KÝ)");
         System.out.println("An dùng khóa riêng d=" + d + " để ký:");
         long C1 = tinhLuyThuaShowBuoc(M, d, n);
@@ -63,8 +62,6 @@ public class RSA {
             long t1 = a1 - q * b1;
             long t2 = a2 - q * b2;
 
-
-            // Cập nhật giá trị cho dòng tiếp theo
             a1 = b1; a2 = b2;
             b1 = t1; b2 = t2;
 
@@ -73,16 +70,12 @@ public class RSA {
         }
         System.out.println("------------------------------------------------------------");
 
-
-        // Nếu b1 âm, đưa về số dương trong modulo phi
         long d = (b1 < 0) ? b1 + phi : b1;
         return d;
     }
 
 
-    /**
-     * Hàm tính lũy thừa nhanh (Square and Multiply) in bảng cột n = 1, 2, 4, 8...
-     */
+
     public static long tinhLuyThuaShowBuoc(long coSo, long soMu, long mod) {
         long ketQua = 1;
         long soDuHienTai = coSo % mod;
